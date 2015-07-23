@@ -61,7 +61,19 @@ public class MainActivityFragment extends Fragment {
             Log.e(TAG, "No wifiManager found");
         }
 
+        initialisation();
+
         return v;
+    }
+
+    private void initialisation() {
+        //if we are totally sleeping, the button is checked and proposes to wake up
+        if(audioManager != null) {
+            int muteState = audioManager.getRingerMode();
+            int wifiState = wifiManager.getWifiState();
+            if(((wifiState != wifiManager.WIFI_STATE_ENABLED) || (wifiState != wifiManager.WIFI_STATE_ENABLING)) && (muteState == audioManager.RINGER_MODE_VIBRATE))
+                btnSwitchSleep.setChecked(true);
+        }
     }
 
     private void changeSwitchSleepStatus(){
@@ -90,17 +102,27 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void mute(){
-        if(audioManager != null) {
-            int state = audioManager.getRingerMode();
-            if (state != audioManager.RINGER_MODE_VIBRATE)
-                audioManager.setRingerMode(audioManager.RINGER_MODE_VIBRATE);
+        try {
+            if (audioManager != null) {
+                int state = audioManager.getRingerMode();
+                if (state != audioManager.RINGER_MODE_VIBRATE)
+                    audioManager.setRingerMode(audioManager.RINGER_MODE_VIBRATE);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
     private void unMute(){
-        if(audioManager != null) {
-            int state = audioManager.getRingerMode();
-            if (state != audioManager.RINGER_MODE_NORMAL)
-                audioManager.setRingerMode(audioManager.RINGER_MODE_NORMAL);
+        try {
+            if (audioManager != null) {
+                int state = audioManager.getRingerMode();
+                if (state != audioManager.RINGER_MODE_NORMAL)
+                    audioManager.setRingerMode(audioManager.RINGER_MODE_NORMAL);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
