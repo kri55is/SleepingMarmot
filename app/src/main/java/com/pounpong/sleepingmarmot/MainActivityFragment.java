@@ -54,11 +54,11 @@ public class MainActivityFragment extends Fragment {
 
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         if(audioManager == null){
-            Log.e(TAG, "No audioManager found");
+            Log.d(TAG, "No audioManager found");
         }
         wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
         if(wifiManager == null){
-            Log.e(TAG, "No wifiManager found");
+            Log.d(TAG, "No wifiManager found");
         }
 
         initialisation();
@@ -71,8 +71,10 @@ public class MainActivityFragment extends Fragment {
         if(audioManager != null) {
             int muteState = audioManager.getRingerMode();
             int wifiState = wifiManager.getWifiState();
-            if(((wifiState != wifiManager.WIFI_STATE_ENABLED) || (wifiState != wifiManager.WIFI_STATE_ENABLING)) && (muteState == audioManager.RINGER_MODE_VIBRATE))
+            if(((wifiState != wifiManager.WIFI_STATE_ENABLED) || (wifiState != wifiManager.WIFI_STATE_ENABLING)) && (muteState == audioManager.RINGER_MODE_VIBRATE)) {
                 btnSwitchSleep.setChecked(true);
+                isSwitchSleepBtnClicked = true;
+            }
         }
     }
 
@@ -180,7 +182,7 @@ public class MainActivityFragment extends Fragment {
         }
         catch (Exception ex)
         {
-            Log.e(TAG, "Error setting mobile data state", ex);
+            Log.d(TAG, "Error setting mobile data state", ex);
         }
     }*/
 /*
