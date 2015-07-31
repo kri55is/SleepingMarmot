@@ -69,9 +69,11 @@ public class MainActivityFragment extends Fragment {
     private void initialisation() {
         //if we are totally sleeping, the button is checked and proposes to wake up
         if(audioManager != null) {
+            // 0.RINGER_MODE_SILENT, 1.RINGER_MODE_VIBRATE, 2.RINGER_MODE_NORMAL
             int muteState = audioManager.getRingerMode();
+            // 0.WIFI_STATE_DISABLING, 1.WIFI_STATE_DISABLED, 2.WIFI_STATE_ENABLING, 3.WIFI_STATE_ENABLED, 4.WIFI_STATE_UNKNOWN
             int wifiState = wifiManager.getWifiState();
-            if(((wifiState != wifiManager.WIFI_STATE_ENABLED) || (wifiState != wifiManager.WIFI_STATE_ENABLING)) && (muteState == audioManager.RINGER_MODE_VIBRATE)) {
+            if(((wifiState == wifiManager.WIFI_STATE_DISABLING) || (wifiState == wifiManager.WIFI_STATE_DISABLED)) && (muteState == audioManager.RINGER_MODE_VIBRATE)) {
                 btnSwitchSleep.setChecked(true);
                 isSwitchSleepBtnClicked = true;
             }
