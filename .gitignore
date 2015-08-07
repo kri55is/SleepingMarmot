@@ -1,7 +1,7 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+#/.idea/workspace.xml
+#/.idea/libraries
 .DS_Store
 /build
 /captures
@@ -35,4 +35,4 @@ Thumbs.db
 
 # Android Studio
 *.iml
-.idea
+#.idea
