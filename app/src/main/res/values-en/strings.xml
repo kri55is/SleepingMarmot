@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SleepMot</string>
     <string name="action_settings">Settings</string>
     <string name="sleep_button">Sleep</string>
     <string name="wakeup_button">Wake up</string>
 
-    <string name="preferences">Preferences</string>
+    <string name="preferences">Customize me</string>
     <string name="sleep_mode_title">Sleep mode</string>
     <string name="ringer_mode_title">Ringer mode</string>
     <string name="ringer_mode_normal">Normal</string>
     <string name="ringer_mode_vibrate">Vibrate</string>
-    <string name="ringer_mode_silence">Silence</string>
+    <string name="ringer_mode_silence">None</string>
     <string name="wifi_title">Wifi</string>
     <string name="wifi_on">On</string>
     <string name="wifi_off">Off</string>
@@ -17,5 +18,4 @@
     <string name="brigntness_do_not_change">Do not change</string>
     <string name="brightness_change">Change</string>
     <string name="awake_mode_title">Awake mode</string>
-
 </resources>

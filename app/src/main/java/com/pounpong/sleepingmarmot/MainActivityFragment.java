@@ -96,13 +96,11 @@ public class MainActivityFragment extends Fragment {
     private void sleep(){
         mute();
         stopWifi();
-        stopCellularData();
     }
 
     private void wakeUp(){
         unMute();
         startWifi();
-        startCellularData();
     }
 
     private void mute(){
@@ -157,65 +155,4 @@ public class MainActivityFragment extends Fragment {
         return result;
 
     }
-
-    private void startCellularData(){
-        //setMobileDataEnabled(true);
-        //setMobileDataState(true);
-    }
-
-    private void stopCellularData(){
-        //setMobileDataEnabled(false);
-        //setMobileDataState(false);
-    }
-/*
-    public void setMobileDataState(boolean mobileDataEnabled)
-    {
-        try
-        {
-            Context context = getActivity();
-            TelephonyManager telephonyService = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-
-            Method setMobileDataEnabledMethod = telephonyService.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
-
-            if (null != setMobileDataEnabledMethod)
-            {
-                setMobileDataEnabledMethod.invoke(telephonyService, mobileDataEnabled);
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.d(TAG, "Error setting mobile data state", ex);
-        }
-    }*/
-/*
-    private void setMobileDataEnabled(boolean enabled) {
-
-        Context context = getActivity();
-        final ConnectivityManager conman =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        try {
-            final Class conmanClass = Class.forName(conman.getClass().getName());
-            final Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
-            iConnectivityManagerField.setAccessible(true);
-            final Object iConnectivityManager = iConnectivityManagerField.get(conman);
-            final Class iConnectivityManagerClass = Class.forName(
-                    iConnectivityManager.getClass().getName());
-            final Method setMobileDataEnabledMethod = iConnectivityManagerClass
-                    .getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
-            setMobileDataEnabledMethod.setAccessible(true);
-
-            setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-    }
-*/
 }
