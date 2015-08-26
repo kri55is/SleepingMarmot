@@ -4,17 +4,23 @@
     <string name="sleep_button">Dodo</string>
     <string name="wakeup_button">Réveil</string>
 
-    <string name="preferences">Préférences</string>
+    <string name="settings">Préférences</string>
     <string name="sleep_mode_title">Mode dodo</string>
     <string name="ringer_mode_title">Ringer mode</string>
     <string name="ringer_mode_normal">Normal</string>
-    <string name="ringer_mode_vibrate">Vibrate</string>
-    <string name="ringer_mode_silence">None</string>
+    <string name="ringer_mode_vibrate">Vibration</string>
+    <string name="ringer_mode_silence">Silence</string>
     <string name="wifi_title">Wifi</string>
     <string name="wifi_on">On</string>
     <string name="wifi_off">Off</string>
-    <string name="brightness_title">Brightness</string>
-    <string name="brigntness_do_not_change">Do not change</string>
-    <string name="brightness_change">Change</string>
-    <string name="awake_mode_title">Awake mode</string>
+    <string name="brightness_title">Eclairage</string>
+    <string name="brigntness_do_not_change">Ne pas changer</string>
+    <string name="brightness_change">Changer</string>
+    <string name="awake_mode_title">Mode éveillé</string>
+
+    <string-array name="array_ringer_mode">
+        <item>Normal</item>
+        <item>Vibration</item>
+        <item>Silence</item>
+    </string-array>
 </resources>
