@@ -1,6 +1,7 @@
 package com.pounpong.sleepingmarmot;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.preference.ListPreference;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String TAG= "SettingsFragment";
 
@@ -21,6 +22,7 @@ public class SettingsFragment extends PreferenceFragment {
 
     private int mSleepRingerMode = 1;
     private ListPreference mListPreference;
+    private SharedPreferences.OnSharedPreferenceChangeListener mListener;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -33,13 +35,24 @@ public class SettingsFragment extends PreferenceFragment {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.fragment_preference_settings);
-    }
 
+  /*      if (mListener == null){
+            mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+                public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                    if (key.equals("applicationUpdates")) {
+                        Preference pref = findPreference(key);
+
+                    }
+                }
+            };
+        }*/
+    }
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       /* mListPreference = (ListPreference) getPreferenceManager().findPreference("applicationUpdates");
+       mListPreference = (ListPreference) getPreferenceManager().findPreference("pref_s_ring_mode");
         if(mListPreference != null){
             mListPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
@@ -48,13 +61,15 @@ public class SettingsFragment extends PreferenceFragment {
                     return false;
                 }
             });
-        }*/
+        }
         return inflater.inflate(R.layout.fragment_settings,container, false);
     }
-
+*/
+    /*
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         //mQuoteView = (TextView) getActivity().findViewById(R.id.quoteView);
         mRGSleepRingerMode = (RadioGroup) getActivity().findViewById(R.id.sleep_mode_rgRingerMode);
         mRGSleepRingerMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -86,19 +101,12 @@ public class SettingsFragment extends PreferenceFragment {
                 //mCallback.onSettingsChanged(newSettings);
             }
         });
-    }
+    }*/
 
     @Override
     public void onAttach(Activity activity) {
         Log.i(TAG, getClass().getSimpleName() + ":entered onAttach()");
         super.onAttach(activity);
-
-        /*try {
-            mCallback = (onSettingsChangeListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }*/
 
     }
 
@@ -112,6 +120,7 @@ public class SettingsFragment extends PreferenceFragment {
     public void onResume() {
         Log.i(TAG, getClass().getSimpleName() + ":entered onResume()");
         super.onResume();
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
 
@@ -119,6 +128,7 @@ public class SettingsFragment extends PreferenceFragment {
     public void onPause() {
         Log.i(TAG, getClass().getSimpleName() + ":entered onPause()");
         super.onPause();
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -146,6 +156,8 @@ public class SettingsFragment extends PreferenceFragment {
         super.onDestroyView();
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-
+    }
 }

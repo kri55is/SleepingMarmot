@@ -1,6 +1,5 @@
 package com.pounpong.sleepingmarmot;
 
-import android.media.AudioManager;
 import android.util.Log;
 
 /**
@@ -9,10 +8,10 @@ import android.util.Log;
 public class SettingsInfo {
 
     private final static String TAG = "SettingsInfo";
-    int ringer_mode; // 0.RINGER_MODE_SILENT, 1.RINGER_MODE_VIBRATE, 2.RINGER_MODE_NORMAL
-    boolean wifi;   // 0.WIFI_STATE_DISABLING, 1.WIFI_STATE_DISABLED, 2.WIFI_STATE_ENABLING, 3.WIFI_STATE_ENABLED, 4.WIFI_STATE_UNKNOWN
-    boolean changeBrightness;
-    int brightness; // has to be between 0 and 255
+    private int ringer_mode; // 0.RINGER_MODE_SILENT, 1.RINGER_MODE_VIBRATE, 2.RINGER_MODE_NORMAL
+    private boolean wifi;   // 0.WIFI_STATE_DISABLING, 1.WIFI_STATE_DISABLED, 2.WIFI_STATE_ENABLING, 3.WIFI_STATE_ENABLED, 4.WIFI_STATE_UNKNOWN
+    private boolean changeBrightness;
+    private int brightness; // has to be between 0 and 255
 
     void SettingInfo() {
         ringer_mode = -1;
@@ -34,7 +33,7 @@ public class SettingsInfo {
         }
     }
 
-    public boolean isWifi() {
+    public boolean getWifi() {
         return wifi;
     }
 
@@ -42,7 +41,7 @@ public class SettingsInfo {
         this.wifi = wifi;
     }
 
-    public boolean isChangeBrightness() {
+    public boolean getChangeBrightness() {
         return changeBrightness;
     }
 

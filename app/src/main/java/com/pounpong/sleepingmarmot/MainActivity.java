@@ -1,12 +1,9 @@
 package com.pounpong.sleepingmarmot;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +16,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -29,19 +25,6 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
 
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-                return super.onOptionsItemSelected(item);
-    }*/
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,6 +44,7 @@ public class MainActivity extends Activity {
                     settingsFragment =  new SettingsFragment();
                 }
                 transaction.replace(R.id.fragmentContainer, settingsFragment);
+                transaction.addToBackStack("settings Fragment");
                 transaction.commit();
                 return true;
 

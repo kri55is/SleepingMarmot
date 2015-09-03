@@ -15,7 +15,7 @@
     <string name="wifi_on">On</string>
     <string name="wifi_off">Off</string>
     <string name="brightness_title">Brightness</string>
-    <string name="brigntness_do_not_change">Do not change</string>
+    <string name="brightness_do_not_change">Do not change</string>
     <string name="brightness_change">Change</string>
 
     <string name="awake_mode_title">Awake mode</string>

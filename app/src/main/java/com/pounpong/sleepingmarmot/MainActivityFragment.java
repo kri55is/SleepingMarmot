@@ -1,17 +1,14 @@
 package com.pounpong.sleepingmarmot;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ToggleButton;
@@ -25,9 +22,6 @@ public class MainActivityFragment extends Fragment {
 
     private ToggleButton btnSwitchSleep;
     private boolean isSwitchSleepBtnClicked = false;
-
-    private SettingsInfo sleepingSetting;
-    private SettingsInfo wakingSetting;
 
     private AudioManager audioManager;
     private WifiManager wifiManager;
@@ -45,6 +39,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
+
         //Remove title bar
         btnSwitchSleep = (ToggleButton) v.findViewById(R.id.btnSwitchSleep);
         btnSwitchSleep.setOnClickListener(new View.OnClickListener() {
@@ -64,47 +59,8 @@ public class MainActivityFragment extends Fragment {
             Log.d(TAG, "No wifiManager found");
         }
 
-        if(sleepingSetting == null){
-            sleepingSetting = new SettingsInfo();
-            resetSleepingSettings();
-        }
-        if(wakingSetting == null){
-            wakingSetting = new SettingsInfo();
-            resetWakingSettings();
-        }
-
         initialisation();
         return v;
-    }
-/*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_settings, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.action_settings:
-               FragmentManager fm = getFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.add(R.id.fragmentContainer, new SettingsFragment());
-                transaction.commit();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-*/
-    private void resetSleepingSettings(){
-        sleepingSetting.setAllSettingsInfo(AudioManager.RINGER_MODE_VIBRATE, false, false, 255);
-    }
-    private void resetWakingSettings(){
-        wakingSetting.setAllSettingsInfo(AudioManager.RINGER_MODE_NORMAL, true, false, 255);
     }
 
     private void initialisation() {
@@ -122,36 +78,63 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void changeSwitchSleepStatus(){
+        SettingsInfo settings = new SettingsInfo();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        String pref;
+        Boolean pref_wifi;
+
         if (isSwitchSleepBtnClicked) {
             isSwitchSleepBtnClicked = false;
             btnSwitchSleep.setChecked(false);
-            wakeUp();
+
+            pref = preferences.getString("pref_a_ring_mode", "Normal");
+            pref_wifi = preferences.getBoolean("pref_a_wifi", true);
         }
         else {
             isSwitchSleepBtnClicked = true;
             btnSwitchSleep.setChecked(true);
-            sleep();
+
+            pref = preferences.getString("pref_s_ring_mode", "Vibrate");
+            pref_wifi = preferences.getBoolean("pref_s_wifi", false);
         }
+
+        Integer pref_ringerMode = 1;
+        if(pref.equals("Silence")) {
+            pref_ringerMode = 0;
+        }
+        else{
+            if (pref.equals("Vibrate"))
+                pref_ringerMode = 1;
+            else {
+                if (pref.equals("Normal"))
+                    pref_ringerMode = 2;
+            }
+        }
+        settings.setRinger_mode(pref_ringerMode);
+        settings.setWifi(pref_wifi);
+
+        setChanges(settings);
     }
 
-    private void sleep(){
-        changeRingerMode(sleepingSetting);
-        changeWifiMode(sleepingSetting);
-        //TODO change brightness
+    private void setChanges(SettingsInfo settings){
+        try {
+            changeRingerMode(settings.getRinger_mode());
+            changeWifiMode(settings.getWifi());
+            //TODO change brightness
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
-    private void wakeUp(){
-        changeRingerMode(wakingSetting);
-        changeWifiMode(wakingSetting);
-        //TODO change brightness
-    }
-
-    private void changeRingerMode(SettingsInfo settings){
+    private void changeRingerMode(Integer ringerMode){
         try {
             if (audioManager != null) {
                 int state = audioManager.getRingerMode();
-                if (state != settings.getRinger_mode())
-                    audioManager.setRingerMode(settings.getRinger_mode());
+                if (state != ringerMode)
+                    audioManager.setRingerMode(ringerMode);
             }
         }
         catch(Exception e){
@@ -159,13 +142,12 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
-    private boolean changeWifiMode(SettingsInfo settings){
+    private boolean changeWifiMode(Boolean wifi){
         boolean result = false;
         if(wifiManager != null){
             try {
                 int current_state = wifiManager.getWifiState();
-                boolean isUseWifi = settings.isWifi();
-                if(!isUseWifi) {
+                if(!wifi) {
                     if ((current_state != wifiManager.WIFI_STATE_DISABLED) && (current_state != wifiManager.WIFI_STATE_DISABLING))
                         result = wifiManager.setWifiEnabled(false);
                 }
@@ -179,21 +161,5 @@ public class MainActivityFragment extends Fragment {
             }
         }
         return result;
-    }
-
-    public SettingsInfo getSleepingSetting() {
-        return sleepingSetting;
-    }
-
-    public void setSleepingSetting(SettingsInfo sleepingSetting) {
-        this.sleepingSetting = sleepingSetting;
-    }
-
-    public SettingsInfo getWakingSetting() {
-        return wakingSetting;
-    }
-
-    public void setWakingSetting(SettingsInfo wakingSetting) {
-        this.wakingSetting = wakingSetting;
     }
 }

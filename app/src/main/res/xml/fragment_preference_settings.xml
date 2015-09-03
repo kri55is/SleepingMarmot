@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/sleep_mode_title"
+        android:key="pref_key_sleeping_mode">
+        <ListPreference
+            android:key="pref_s_ring_mode"
+            android:title="@string/ringer_mode_title"
+            android:entries="@array/array_ringer_mode"
+            android:entryValues="@array/array_ringer_mode"
+            android:defaultValue="Vibrate"
+            />
+        <CheckBoxPreference
+            android:key="pref_s_wifi"
+            android:title="@string/wifi_title"
+            android:defaultValue="false"
+            />
 
-    <CheckBoxPreference android:title="Application Updates"
-        android:defaultValue="false"
-        android:summary="This option if selected will allow the application to check for latest versions."
-        android:key="applicationUpdates" />
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/awake_mode_title"
+        android:key="pref_key_waking_mode">
+        <ListPreference
+            android:key="pref_a_ring_mode"
+            android:title="@string/ringer_mode_title"
+            android:entries="@array/array_ringer_mode"
+            android:entryValues="@array/array_ringer_mode"
+            android:summary="Your ringer mode for the day"
+            android:defaultValue="Normal"
+            />
+        <CheckBoxPreference
+            android:key="pref_a_wifi"
+            android:title="@string/wifi_title"
+            android:defaultValue="true"
+            />
 
+    </PreferenceCategory>
 </PreferenceScreen>
