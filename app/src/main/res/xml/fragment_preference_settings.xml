@@ -8,7 +8,8 @@
             android:title="@string/ringer_mode_title"
             android:entries="@array/array_ringer_mode"
             android:entryValues="@array/array_ringer_mode"
-            android:defaultValue="Vibrate"
+            android:summary="@string/ringer_mode_s_default"
+            android:defaultValue="@string/ringer_mode_s_default"
             />
         <CheckBoxPreference
             android:key="pref_s_wifi"
@@ -26,8 +27,8 @@
             android:title="@string/ringer_mode_title"
             android:entries="@array/array_ringer_mode"
             android:entryValues="@array/array_ringer_mode"
-            android:summary="Your ringer mode for the day"
-            android:defaultValue="Normal"
+            android:summary="@string/ringer_mode_a_default"
+            android:defaultValue="@string/ringer_mode_a_default"
             />
         <CheckBoxPreference
             android:key="pref_a_wifi"

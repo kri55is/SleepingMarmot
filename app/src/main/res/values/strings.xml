@@ -8,6 +8,8 @@
 
     <string name="sleep_mode_title">Sleep mode</string>
     <string name="ringer_mode_title">Ringer mode</string>
+    <string name="ringer_mode_a_default">Normal</string>
+    <string name="ringer_mode_s_default">Vibrate</string>
     <string name="ringer_mode_normal">Normal</string>
     <string name="ringer_mode_vibrate">Vibrate</string>
     <string name="ringer_mode_silence">Silence</string>
@@ -29,5 +31,7 @@
         <item>Vibrate</item>
         <item>Silence</item>
     </string-array>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

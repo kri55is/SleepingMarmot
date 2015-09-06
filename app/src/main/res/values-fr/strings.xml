@@ -6,9 +6,11 @@
 
     <string name="settings">Préférences</string>
     <string name="sleep_mode_title">Mode dodo</string>
-    <string name="ringer_mode_title">Ringer mode</string>
+    <string name="ringer_mode_a_default">Normal</string>
+    <string name="ringer_mode_s_default">Vibreur</string>
+    <string name="ringer_mode_title">Type de sonnerie</string>
     <string name="ringer_mode_normal">Normal</string>
-    <string name="ringer_mode_vibrate">Vibration</string>
+    <string name="ringer_mode_vibrate">Vibreur</string>
     <string name="ringer_mode_silence">Silence</string>
     <string name="wifi_title">Wifi</string>
     <string name="wifi_on">On</string>

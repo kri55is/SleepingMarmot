@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,33 +82,36 @@ public class MainActivityFragment extends Fragment {
         SettingsInfo settings = new SettingsInfo();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        String pref;
+        Preference preference;
+        String PrefRingerModeValue;
         Boolean pref_wifi;
+
+
 
         if (isSwitchSleepBtnClicked) {
             isSwitchSleepBtnClicked = false;
             btnSwitchSleep.setChecked(false);
 
-            pref = preferences.getString("pref_a_ring_mode", "Normal");
+            PrefRingerModeValue = preferences.getString("pref_a_ring_mode", "Normal");
             pref_wifi = preferences.getBoolean("pref_a_wifi", true);
         }
         else {
             isSwitchSleepBtnClicked = true;
             btnSwitchSleep.setChecked(true);
 
-            pref = preferences.getString("pref_s_ring_mode", "Vibrate");
+            PrefRingerModeValue = preferences.getString("pref_s_ring_mode", "Vibrate");
             pref_wifi = preferences.getBoolean("pref_s_wifi", false);
         }
 
         Integer pref_ringerMode = 1;
-        if(pref.equals("Silence")) {
+        if(PrefRingerModeValue.equals("Silence")) {
             pref_ringerMode = 0;
         }
         else{
-            if (pref.equals("Vibrate"))
+            if (PrefRingerModeValue.equals("Vibrate"))
                 pref_ringerMode = 1;
             else {
-                if (pref.equals("Normal"))
+                if (PrefRingerModeValue.equals("Normal"))
                     pref_ringerMode = 2;
             }
         }

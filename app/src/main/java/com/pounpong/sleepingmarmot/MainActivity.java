@@ -3,6 +3,7 @@ package com.pounpong.sleepingmarmot;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,7 +12,6 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
-    SettingsFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +38,10 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
 
             case R.id.action_settings:
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                if(settingsFragment == null) {
-                    settingsFragment =  new SettingsFragment();
-                }
-                transaction.replace(R.id.fragmentContainer, settingsFragment);
-                transaction.addToBackStack("settings Fragment");
-                transaction.commit();
+                Intent intent= new Intent();
+                intent.setClass(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+
                 return true;
 
             default:

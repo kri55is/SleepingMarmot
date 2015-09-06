@@ -7,6 +7,8 @@
 
     <string name="settings">Customize me</string>
     <string name="sleep_mode_title">Sleep mode</string>
+    <string name="ringer_mode_a_default">Normal</string>
+    <string name="ringer_mode_s_default">Vibrate</string>
     <string name="ringer_mode_title">Ringer mode</string>
     <string name="ringer_mode_normal">Normal</string>
     <string name="ringer_mode_vibrate">Vibrate</string>
