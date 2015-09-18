@@ -3,6 +3,7 @@ package com.pounpong.sleepingmarmot;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
 
@@ -26,6 +28,8 @@ public class MainActivityFragment extends Fragment {
 
     private AudioManager audioManager;
     private WifiManager wifiManager;
+
+    private RelativeLayout layout;
 
     public MainActivityFragment() {
     }
@@ -60,8 +64,14 @@ public class MainActivityFragment extends Fragment {
             Log.d(TAG, "No wifiManager found");
         }
 
-        initialisation();
         return v;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.i(TAG, getClass().getSimpleName() + ":entered onResume()");
+        initialisation();
     }
 
     private void initialisation() {
@@ -76,9 +86,43 @@ public class MainActivityFragment extends Fragment {
                 isSwitchSleepBtnClicked = true;
             }
         }
+
+        updateBackgroundImage();
+    }
+
+    private void updateBackgroundImage(){
+        //Determine screen orientation
+        int orientation = getResources().getConfiguration().orientation;
+        boolean landscape = false;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            landscape = true;
+        }
+
+        layout = (RelativeLayout) getActivity().findViewById(R.id.layout);
+        if(layout != null) {
+            //Check state we are on :Sleeping or Awake
+            if (isSwitchSleepBtnClicked) {
+                if(!landscape)
+                    layout.setBackgroundResource(R.drawable.backgroundsleepingmarmot);
+                else
+                    layout.setBackgroundResource(R.drawable.backgroundsleepingmarmotland);
+            }
+            else{
+                if(!landscape)
+                    layout.setBackgroundResource(R.drawable.backgroundawakemarmot);
+                else
+                    layout.setBackgroundResource(R.drawable.backgroundawakemarmotland);
+            }
+        }
+        else{
+            Log.e(TAG, "Error, no view");
+        }
+
     }
 
     private void changeSwitchSleepStatus(){
+
+        /* Find out the new status and put it in settings var*/
         SettingsInfo settings = new SettingsInfo();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
@@ -86,8 +130,7 @@ public class MainActivityFragment extends Fragment {
         String PrefRingerModeValue;
         Boolean pref_wifi;
 
-
-
+        /*Read from the saved preferences to know the new desired status*/
         if (isSwitchSleepBtnClicked) {
             isSwitchSleepBtnClicked = false;
             btnSwitchSleep.setChecked(false);
@@ -101,8 +144,11 @@ public class MainActivityFragment extends Fragment {
 
             PrefRingerModeValue = preferences.getString("pref_s_ring_mode", "Vibrate");
             pref_wifi = preferences.getBoolean("pref_s_wifi", false);
-        }
 
+        }
+        settings.setWifi(pref_wifi);
+
+        /* Translate ringerMode from String to int*/
         Integer pref_ringerMode = 1;
         if(PrefRingerModeValue.equals("Silence")) {
             pref_ringerMode = 0;
@@ -115,10 +161,14 @@ public class MainActivityFragment extends Fragment {
                     pref_ringerMode = 2;
             }
         }
-        settings.setRinger_mode(pref_ringerMode);
-        settings.setWifi(pref_wifi);
 
+        settings.setRinger_mode(pref_ringerMode);
+
+        /* apply the new desired settings */
         setChanges(settings);
+
+        /* Update the background depending on the state and the phone orientation */
+        updateBackgroundImage();
     }
 
     private void setChanges(SettingsInfo settings){

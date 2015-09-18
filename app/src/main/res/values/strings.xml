@@ -22,16 +22,10 @@
 
     <string name="awake_mode_title">Awake mode</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-
     <string-array name="array_ringer_mode">
         <item>Normal</item>
         <item>Vibrate</item>
         <item>Silence</item>
     </string-array>
-
-    <string name="hello_world">Hello world!</string>
 
 </resources>
